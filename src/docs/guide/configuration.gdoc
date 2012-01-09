@@ -1,0 +1,24 @@
+There are a few configuration options for the "Mock" plugin.
+
+{note}
+This plugin exposes a rather large security hole in your application.  It is HIGHLY recommended that you restrict access to your application to localhost when you are using this plugin, and that you only use this plugin in development mode.  This can be done with the [ipRestrictions|http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/18%20IP%20Address%20Restrictions.html] configuration parameter.
+{note}
+
+{note}
+All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugins.springsecurity@ suffix, for example
+{code}
+grails.plugins.springsecurity.mock.username = 'aaronzirbes'
+{code}
+{note}
+
+
+
+{table}
+*Name* | *Default* | *Meaning*
+mock.active | @false@ | whether the plugin is enabled or not (e.g. to disable per-environment)
+mock.fullName | 'Fake User Account' | the full name of the mock user being automatically logged in
+mock.email | 'fake@example.org'  | the email address of the mock user being automatically logged in
+mock.username | 'fakeuser' | the username of the mock user being automatically logged in
+mock.roles | [ 'ROLE_USER', 'ROLE_ADMIN' ] | a collection of roles that will be automatically assigned to the mock user being auto-logged in to your application
+{table}
+

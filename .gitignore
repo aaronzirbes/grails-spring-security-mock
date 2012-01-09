@@ -22,9 +22,11 @@ stacktrace.log
 *.war
 
 # target
-target/
+target/classes
 
 # package zip files
 grails-*.zip
 
 plugin.xml
+
+web-app/
