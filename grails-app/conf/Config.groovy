@@ -27,3 +27,5 @@ grails.doc.authors = 'Aaron J. Zirbes'
 grails.doc.license = 'GNU General Public License v3' 
 grails.doc.title = 'Grails Spring Security Mock Plugin' 
 
+grails.views.default.codec="none" // none, html, base64
+grails.views.gsp.encoding="UTF-8"
