@@ -46,7 +46,7 @@ class MockAuthenticationProvider implements AuthenticationProvider, Initializing
 		if (userDetailsService.metaClass.respondsTo(userDetailsService, 'loadUserByUsername', String) ) {
 			log.debug "loadUserByUsername"
 
-			mockUserDetails = userDetailsService.loadUserByUsername(authentication.principal)
+			mockUserDetails = userDetailsService.loadUserByUsername(authentication.username)
 
 			authorities = mockUserDetails?.authorities
 		} else if (userDetailsService.metaClass.respondsTo(userDetailsService, 'loadUserDetails', Authentication) ) {
@@ -61,7 +61,9 @@ class MockAuthenticationProvider implements AuthenticationProvider, Initializing
 			mockUserDetails = authentication.principal
 		}
 
-		return new MockAuthenticationToken(name, authorities, null, mockUserDetails, true)
+		// MockAuthenticationToken(String, Collections$UnmodifiableSet, null, MockUserDetails, Boolean
+
+		return new MockAuthenticationToken(authentication.username, authorities, null, mockUserDetails, true)
 	}
 
 	public void afterPropertiesSet() throws Exception {
@@ -69,7 +71,7 @@ class MockAuthenticationProvider implements AuthenticationProvider, Initializing
 	}
 
 	/** Returns true if the Authentication implementation passed is supported
-	 * by the {@code ShibbolethAuthenticationProvider#authenticate} method.
+	 * by the {@code MockAuthenticationProvider#authenticate} method.
 	 */
 	boolean supports(Class authentication) {
 		return MockAuthenticationToken.class.isAssignableFrom(authentication)

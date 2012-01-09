@@ -35,10 +35,10 @@ class SpringSecurityMockGrailsPlugin {
 		if (!conf.mock.active) { return }
 
 		// mock authentication entry point
-		authenticationEntryPoint(ShibbolethAuthenticationEntryPoint)
+		authenticationEntryPoint(MockAuthenticationEntryPoint)
 
 		// mock user details service
-		mockUserDetailsService(ShibbolethUserDetailsService) {
+		mockUserDetailsService(MockUserDetailsService) {
 			fullName conf.mock.fullName
 			email = conf.mock.email
 			username = conf.mock.username
@@ -46,11 +46,11 @@ class SpringSecurityMockGrailsPlugin {
 		}
 
 		// mock authentication provider
-		mockAuthenticationProvider(ShibbolethAuthenticationProvider) {
+		mockAuthenticationProvider(MockAuthenticationProvider) {
 			userDetailsService = ref('mockUserDetailsService')
 		}
 		// mock authentication filter 
-		mockAuthenticationFilter(ShibbolethAuthenticationFilter) {
+		mockAuthenticationFilter(MockAuthenticationFilter) {
 			authenticationDetailsSource = ref('authenticationDetailsSource')
 			authenticationFailureHandler = ref('authenticationFailureHandler')
 			authenticationManager = ref('authenticationManager')

@@ -16,9 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 class MockUserDetailsService implements UserDetailsService, AuthenticationUserDetailsService {
 
 	private static final log = Logger.getLogger(this)
-	def fullName
-	def email
-	def username
+	String fullName
+	String email
+	String username
 	ArrayList<String> mockRoles = new ArrayList<String>()
 
 	/**
@@ -54,16 +54,16 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 		log.debug("loadUserDetails():: invocation")
 
 		// set default values
-		def fullName = fullName
-		def email = email
-		def username = authentication.name
-		def password = ''
-		def enabled = true
-		def accountNonExpired = true
-		def credentialsNonExpired = true
-		def accountNonLocked = true
+		String fullName = fullName
+		String email = email
+		String username = username
+		String password = ''
+		boolean enabled = true
+		boolean accountNonExpired = true
+		boolean credentialsNonExpired = true
+		boolean accountNonLocked = true
 
-		Collection<GrantedAuthorityImpl> authorities
+		Collection<GrantedAuthorityImpl> authorities = new ArrayList<GrantedAuthorityImpl>()
 
 		// Allow roles to be manually set in development mode
 		if (mockRoles) {
