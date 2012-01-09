@@ -22,3 +22,8 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
+
+grails.doc.authors = 'Aaron J. Zirbes' 
+grails.doc.license = 'GNU General Public License v3' 
+grails.doc.title = 'Grails Spring Security Mock Plugin' 
+

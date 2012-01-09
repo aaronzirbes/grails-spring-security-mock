@@ -1,4 +1,3 @@
-
 security {
 	mock {
 		// Disabled by default
@@ -6,7 +5,11 @@ security {
 
 		fullName = 'Fake User Account'
 		email = 'fake@example.org'
-		username = 'fake user'
+		username = 'fakeuser'
 		roles = [ 'ROLE_USER', 'ROLE_ADMIN' ]
 	}
 }
+
+// Suggested defaults
+// grails.springsecurity.ipRestrictions = [ '/**': ['127.0.0.0/8', '::1/128'] ]
+
