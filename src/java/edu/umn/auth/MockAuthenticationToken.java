@@ -34,7 +34,6 @@ import org.springframework.security.core.GrantedAuthority;
 class MockAuthenticationToken extends AbstractAuthenticationToken implements Serializable {
 
 	private final String username;
-	private final Object details;
 	private final Object principal;
 
 	public MockAuthenticationToken(String username) {
@@ -42,7 +41,6 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 		super(new ArrayList<GrantedAuthority>(0));
 
 		this.username = username;
-		this.details = null;
 		this.principal = username;
 		this.setAuthenticated(false);
 	}
@@ -53,16 +51,18 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 
 	public MockAuthenticationToken(final String username, 
 			final Collection<? extends GrantedAuthority> authorities, 
-			final Object details, 
-			final Object principal, 
-			final boolean authenticated) {
+			final Object principal) {
 
 		super(authorities);
 
 		this.username = username;
-		this.details = details;
 		this.principal = principal;
-		this.setAuthenticated(false);
+		this.setAuthenticated(true);
+	}
+
+	/** Getter for details */
+	public Object getDetails() {
+		return null;
 	}
 
 	/** Getter for username */
@@ -73,11 +73,6 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 	/** Getter for credentials */
 	public Object getCredentials() {
 		return null;
-	}
-
-	/** Getter for details */
-	public Object getDetails() {
-		return this.details;
 	}
 
 	/** Getter for principal */

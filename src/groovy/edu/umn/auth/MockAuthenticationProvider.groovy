@@ -80,7 +80,7 @@ class MockAuthenticationProvider implements AuthenticationProvider, Initializing
 
 		// MockAuthenticationToken(String, Collections$UnmodifiableSet, null, MockUserDetails, Boolean
 
-		return new MockAuthenticationToken(authentication.username, authorities, null, mockUserDetails, true)
+		return new MockAuthenticationToken(authentication.username, authorities, mockUserDetails)
 	}
 
 	public void afterPropertiesSet() throws Exception {
