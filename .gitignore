@@ -30,3 +30,9 @@ grails-*.zip
 plugin.xml
 
 web-app/
+grails-app/controllers
+grails-app/domain
+grails-app/views
+grails-app/services
+grails-app/utils
+grails-app/taglib
