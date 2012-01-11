@@ -42,6 +42,10 @@ class MockUserDetails extends User {
 		this.email = email;
 	}
 
+	public String toString() {
+		return this.getUsername();
+	}
+
 	public String getFullName() {
 		return this.fullName;
 	}

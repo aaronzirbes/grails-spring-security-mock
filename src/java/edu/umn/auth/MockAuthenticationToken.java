@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+//import java.lang.IllegalArgumentException;
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
      * Copyright (C) 2012 Aaron J. Zirbes
@@ -42,7 +43,8 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 
 		this.username = username;
 		this.principal = username;
-		this.setAuthenticated(false);
+
+		super.setAuthenticated(false);
 	}
 
 	public String toString() {
@@ -55,9 +57,11 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 
 		super(authorities);
 
+
 		this.username = username;
 		this.principal = principal;
-		this.setAuthenticated(true);
+
+		super.setAuthenticated(true);
 	}
 
 	/** Getter for details */
