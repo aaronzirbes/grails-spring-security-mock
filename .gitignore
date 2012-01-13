@@ -22,7 +22,7 @@ stacktrace.log
 *.war
 
 # target
-target/classes
+target/
 
 # package zip files
 grails-*.zip
