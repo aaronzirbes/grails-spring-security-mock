@@ -23,14 +23,14 @@ class MockAuthenticationTokenTests {
         // Tear down logic here
     }
 
-    void testFilterInstantiation() {
+    void testFilterTokenInstantiation() {
 		def token = new MockAuthenticationToken('ajz')
 
 		assert token.username == 'ajz'
 		assertFalse token.authenticated
     }
 
-    void testProviderInstantiation() {
+    void testProviderTokenInstantiation() {
 
 		def authorities = [] as Set
 		def principal = "ajz"

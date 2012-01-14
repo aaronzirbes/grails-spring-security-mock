@@ -70,6 +70,11 @@ class MockAuthenticationToken extends AbstractAuthenticationToken implements Ser
 	}
 
 	/** Getter for username */
+	public String getUsername() {
+		return this.username;
+	}
+
+	/** Getter for name */
 	public String getName() {
 		return this.username;
 	}

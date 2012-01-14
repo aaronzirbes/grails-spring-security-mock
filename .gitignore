@@ -13,6 +13,7 @@
 .settings
 /*.launch
 /*.tmproj
+.*.swp
 
 # logs
 stacktrace.log

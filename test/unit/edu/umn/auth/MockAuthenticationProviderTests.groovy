@@ -12,15 +12,32 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class MockAuthenticationProviderTests {
 
+	def detailsServiceSettings
+	def mockUserDetailsService
+	def mockAuthenticationProvider 
+
     void setUp() {
         // Setup logic here
+		detailsServiceSettings = [
+			fullName: 'John Doe',
+			email: 'johndoe@example.org' ]
+
+		mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
     }
 
     void tearDown() {
         // Tear down logic here
     }
 
-    void testSomething() {
-        fail "Implement me"
+    void testProvider() {
+		def token = new MockAuthenticationToken('ajz')
+		def mockAuthenticationProvider = new MockAuthenticationProvider(userDetailsService: mockUserDetailsService)
+
+		def newToken = mockAuthenticationProvider.authenticate(token)
+
+		assert token.username == newToken.username
+		assert false == token.isAuthenticated()
+		assert true == newToken.isAuthenticated()
+
     }
 }

@@ -35,7 +35,6 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	private static final log = Logger.getLogger(this)
 	String fullName
 	String email
-	String username
 	ArrayList<String> mockRoles = new ArrayList<String>()
 
 	/**
@@ -53,27 +52,30 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	 * This is to support the {@code RememberMeService}
 	 */
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return loadMockUserDetails()
+		return loadMockUserDetails(username)
 	}
 
 	/**
 	 * This is to support loading by Authentication
 	 */
 	UserDetails loadUserDetails(Authentication authentication) throws UsernameNotFoundException {
-		return loadMockUserDetails()
+		if (authentication == null) {
+			return null
+		} else {
+			return loadMockUserDetails(authentication.getPrincipal().toString())
+		}
 	}
 
 	/**
 	 * This loads the user details from configuration settings
 	 */
-	UserDetails loadMockUserDetails() throws UsernameNotFoundException {
+	UserDetails loadMockUserDetails(String username) throws UsernameNotFoundException {
 
 		log.debug("loadUserDetails():: invocation")
 
 		// set default values
 		String fullName = fullName
 		String email = email
-		String username = username
 		String password = ''
 		boolean enabled = true
 		boolean accountNonExpired = true

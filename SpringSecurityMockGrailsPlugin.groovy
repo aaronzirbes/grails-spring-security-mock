@@ -58,7 +58,6 @@ class SpringSecurityMockGrailsPlugin {
 		mockUserDetailsService(MockUserDetailsService) {
 			fullName conf.mock.fullName
 			email = conf.mock.email
-			username = conf.mock.username
 			mockRoles = conf.mock.roles
 		}
 

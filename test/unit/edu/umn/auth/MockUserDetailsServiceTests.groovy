@@ -12,15 +12,53 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class MockUserDetailsServiceTests {
 
+	def detailsServiceSettings
+
     void setUp() {
         // Setup logic here
+
+		def mockRoles = [ 'ROLE_AWESOME' ]
+
+		detailsServiceSettings = [
+			fullName: 'John Doe',
+			email: 'johndoe@example.org',
+		   	mockRoles: mockRoles ]
     }
 
     void tearDown() {
         // Tear down logic here
     }
 
-    void testSomething() {
-        fail "Implement me"
+    void testLoadByUsername() {
+
+		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
+		def userDetails = mockUserDetailsService.loadUserByUsername('ajz')
+
+		assert 'John Doe' == userDetails.fullName
+		assert 'johndoe@example.org' == userDetails.email
+		assert '' == userDetails.password
+		assertTrue userDetails.accountNonExpired
+		assertTrue userDetails.credentialsNonExpired
+		assertTrue userDetails.accountNonLocked
+		assertTrue userDetails.authorities.collect{ it.toString() }.contains('ROLE_AWESOME')
+		assertFalse userDetails.authorities.collect{ it.toString() }.contains('ROLE_LAME_SAUCE')
+
+    }
+
+    void testLoadByToken() {
+		def token = new MockAuthenticationToken('ajz')
+		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
+
+		def userDetails = mockUserDetailsService.loadUserDetails(token)
+
+		assert 'John Doe' == userDetails.fullName
+		assert 'johndoe@example.org' == userDetails.email
+		assert '' == userDetails.password
+		assertTrue userDetails.accountNonExpired
+		assertTrue userDetails.credentialsNonExpired
+		assertTrue userDetails.accountNonLocked
+		assertTrue userDetails.authorities.collect{ it.toString() }.contains('ROLE_AWESOME')
+		assertFalse userDetails.authorities.collect{ it.toString() }.contains('ROLE_LAME_SAUCE')
+
     }
 }
