@@ -20,6 +20,8 @@ class MockAuthenticationTokenTests {
 
 		assert token.username == 'ajz'
 		assertFalse token.authenticated
+
+		assertNull token.getCredentials()
     }
 
     void testProviderTokenInstantiation() {
@@ -36,4 +38,10 @@ class MockAuthenticationTokenTests {
 		assert token.authorities.contains(testRole)
 		assertTrue token.authenticated
     }
+
+	void testToString() {
+		def token = new MockAuthenticationToken('ajz')
+		    
+		assert 'ajz' == token.toString()
+	}
 }

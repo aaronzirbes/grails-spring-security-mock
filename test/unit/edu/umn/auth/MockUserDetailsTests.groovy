@@ -39,5 +39,6 @@ class MockUserDetailsTests {
 		assert accountNonExpired == userDetails.accountNonExpired
 		assert credentialsNonExpired == userDetails.credentialsNonExpired
 		assert accountNonLocked == userDetails.accountNonLocked
+		assert username == userDetails.toString()
     }
 }

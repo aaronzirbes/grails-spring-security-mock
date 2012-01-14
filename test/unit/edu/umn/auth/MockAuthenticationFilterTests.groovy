@@ -40,6 +40,36 @@ class MockAuthenticationFilterTests {
 			authenticationManager: authenticationManager ]
     }
 
+    void testAfterPropertiesSetFailNoAuthenticationManager() {
+
+		// Setup the Filter
+		shouldFail {
+			def mockAuthenticationFilter = new MockAuthenticationFilter(mockUsername: 'test')
+			mockAuthenticationFilter.afterPropertiesSet()
+		}
+
+    }
+
+    void testAfterPropertiesSetFailNoUserName() {
+
+		// Setup the Filter
+		shouldFail {
+			def mockAuthenticationFilter = new MockAuthenticationFilter(authenticationManager: authenticationManager)
+			mockAuthenticationFilter.afterPropertiesSet()
+		}
+
+    }
+
+    void testAfterPropertiesSet() {
+
+		// Setup the Filter
+		def mockAuthenticationFilter = new MockAuthenticationFilter(filterSettings)
+
+		// make sure it worked
+		assert mockAuthenticationFilter
+
+    }
+
     void testFilter() {
 
 		// Setup the Filter

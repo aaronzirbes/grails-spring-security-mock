@@ -28,7 +28,8 @@ class MockUserDetailsServiceTests {
     void testLoadByUsername() {
 
 		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
-		def userDetails = mockUserDetailsService.loadUserByUsername('ajz')
+		String username = 'ajz'
+		def userDetails = mockUserDetailsService.loadUserByUsername(username)
 
 		assert 'John Doe' == userDetails.fullName
 		assert 'johndoe@example.org' == userDetails.email
@@ -55,6 +56,12 @@ class MockUserDetailsServiceTests {
 		assertTrue userDetails.accountNonLocked
 		assertTrue userDetails.authorities.collect{ it.toString() }.contains('ROLE_AWESOME')
 		assertFalse userDetails.authorities.collect{ it.toString() }.contains('ROLE_LAME_SAUCE')
-
     }
+
+	void testNullTokenReturnsNull() {
+		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
+		def userDetails = mockUserDetailsService.loadUserDetails(null)
+
+		assertNull userDetails
+	}
 }
