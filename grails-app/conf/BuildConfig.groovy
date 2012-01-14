@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
-        //mavenCentral()
+        mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -29,3 +29,15 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.13'
     }
 }
+
+codenarc.reports = {
+	JenkinsXmlReport('xml') {
+		outputFile = 'target/test-reports/CodeNarcReport.xml' 
+		title = 'CodeNarc Report for Grails Spring Security Mock plugin'
+	}
+	JenkinsHtmlReport('html') {
+		outputFile = 'CodeNarcReport.html' 
+		title = 'CodeNarc Report for Grails Spring Security Mock plugin'
+	}
+}
+

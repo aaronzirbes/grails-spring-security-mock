@@ -25,6 +25,8 @@ stacktrace.log
 # target
 target/
 
+CodeNarcReport.html
+
 # package zip files
 grails-*.zip
 
