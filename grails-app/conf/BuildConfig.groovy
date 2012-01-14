@@ -40,3 +40,4 @@ codenarc.reports = {
 		title = 'CodeNarc Report for Grails Spring Security Mock plugin'
 	}
 }
+codenarc.propertiesFile = 'grails-app/conf/codenarc.properties'
