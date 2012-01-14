@@ -40,4 +40,3 @@ codenarc.reports = {
 		title = 'CodeNarc Report for Grails Spring Security Mock plugin'
 	}
 }
-

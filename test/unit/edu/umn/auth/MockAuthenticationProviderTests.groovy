@@ -25,10 +25,6 @@ class MockAuthenticationProviderTests {
 		mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
     }
 
-    void tearDown() {
-        // Tear down logic here
-    }
-
     void testProvider() {
 		def token = new MockAuthenticationToken('ajz')
 		def mockAuthenticationProvider = new MockAuthenticationProvider(userDetailsService: mockUserDetailsService)

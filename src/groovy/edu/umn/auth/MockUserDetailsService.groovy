@@ -40,7 +40,7 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	/**
 	 * This is to support the {@code RememberMeService}
 	 */
-	private final Map<String, MockUserDetails> registeredUsers = new HashMap<String, MockUserDetails>()
+	Map<String, MockUserDetails> registeredUsers = new HashMap<String, MockUserDetails>()
 	/**
 	 * Some Spring Security classes (e.g. RoleHierarchyVoter) expect at least one role, so
 	 * we give a user with no granted roles this one which gets past that restriction but

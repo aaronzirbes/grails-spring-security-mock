@@ -1,9 +1,10 @@
 package edu.umn.auth
 
+import static org.junit.Assert.*
+
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.security.authentication.ProviderManager
-import static org.junit.Assert.*
 
 import grails.test.mixin.*
 import grails.test.mixin.support.*
@@ -37,10 +38,6 @@ class MockAuthenticationFilterTests {
 		filterSettings = [ 
 			mockUsername: 'test', 
 			authenticationManager: authenticationManager ]
-    }
-
-    void tearDown() {
-        // Tear down logic here
     }
 
     void testFilter() {

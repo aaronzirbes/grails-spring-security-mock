@@ -15,14 +15,6 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl
 @TestMixin(GrailsUnitTestMixin)
 class MockAuthenticationTokenTests {
 
-    void setUp() {
-        // Setup logic here
-    }
-
-    void tearDown() {
-        // Tear down logic here
-    }
-
     void testFilterTokenInstantiation() {
 		def token = new MockAuthenticationToken('ajz')
 

@@ -13,14 +13,6 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class MockUserDetailsTests {
 
-    void setUp() {
-        // Setup logic here
-    }
-
-    void tearDown() {
-        // Tear down logic here
-    }
-
     void testInstantiation() {
 		String username = 'marvelca'
 		String fullName = 'Steve Rogers'

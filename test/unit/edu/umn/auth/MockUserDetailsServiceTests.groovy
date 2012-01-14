@@ -25,10 +25,6 @@ class MockUserDetailsServiceTests {
 		   	mockRoles: mockRoles ]
     }
 
-    void tearDown() {
-        // Tear down logic here
-    }
-
     void testLoadByUsername() {
 
 		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)

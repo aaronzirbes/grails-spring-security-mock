@@ -1,6 +1,5 @@
 package edu.umn.auth
 
-import java.io.IOException
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -32,13 +31,16 @@ import org.springframework.security.web.AuthenticationEntryPoint
  * @author <a href="mailto:ajz@umn.edu">Aaron J. Zirbes</a>
  */
 class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, InitializingBean {
-	private static final log = Logger.getLogger(this)
 
 	void afterPropertiesSet() { }
+
+	static final Logger logger = Logger.getLogger(this)
 
 	/** Commences the login re-direct */
 	public final void commence(final HttpServletRequest request, final HttpServletResponse response,
 	            final AuthenticationException authenticationException) throws IOException, ServletException {
+
+		logger.debug('commencing from exception' + authenticationException.toString())
 
 		// get the context
 		def contextPath = request.getContextPath()
@@ -46,16 +48,6 @@ class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, Initiali
 		// This matches the MockAuthenticationFilter URL
 		final String redirectUrl = contextPath + "/j_spring_mock_security_check"
 
-		preCommence(request, response)
-
 		response.sendRedirect(redirectUrl)
 	}
-
-	/**
-	 * Template method for you to do your own pre-processing before the redirect occurs.
-	 *
-	 * @param request the HttpServletRequest
-	 * @param response the HttpServletResponse
-	 */
-	protected void preCommence(final HttpServletRequest request, final HttpServletResponse response) { }
 }

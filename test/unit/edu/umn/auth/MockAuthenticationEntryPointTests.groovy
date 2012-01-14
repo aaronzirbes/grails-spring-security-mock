@@ -15,14 +15,6 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class MockAuthenticationEntryPointTests {
 
-    void setUp() {
-        // Setup logic here
-    }
-
-    void tearDown() {
-        // Tear down logic here
-    }
-
     void testRedirect() {
         def entryPoint = new MockAuthenticationEntryPoint()
 
