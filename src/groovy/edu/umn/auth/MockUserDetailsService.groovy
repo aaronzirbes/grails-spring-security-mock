@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.AuthenticationUserDetailsSe
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
      * Copyright (C) 2012 Aaron J. Zirbes
@@ -32,10 +33,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
  */
 class MockUserDetailsService implements UserDetailsService, AuthenticationUserDetailsService {
 
-	private static final log = Logger.getLogger(this)
+	static final Logger logger = Logger.getLogger(this)
 	String fullName
 	String email
 	ArrayList<String> mockRoles = new ArrayList<String>()
+
+	String userDnBase
+	DefaultLdapAuthoritiesPopulator ldapAuthoritiesPopulator
 
 	/**
 	 * This is to support the {@code RememberMeService}
@@ -52,7 +56,8 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	 * This is to support the {@code RememberMeService}
 	 */
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return loadMockUserDetails(username)
+		UserDetails userDetails = loadMockUserDetails(username)
+		return userDetails
 	}
 
 	/**
@@ -71,8 +76,6 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	 */
 	UserDetails loadMockUserDetails(String username) throws UsernameNotFoundException {
 
-		log.debug("loadUserDetails():: invocation")
-
 		// set default values
 		String fullName = fullName
 		String email = email
@@ -82,13 +85,21 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 		boolean credentialsNonExpired = true
 		boolean accountNonLocked = true
 
-		Collection<GrantedAuthorityImpl> authorities = new ArrayList<GrantedAuthorityImpl>()
+		Collection<GrantedAuthority> authorities
 
 		// Allow roles to be manually set in development mode
-		if (mockRoles) {
+		if (userDnBase && ldapAuthoritiesPopulator) {
+			logger.debug "loading roles/authorities from LDAP"
+			String userDn = 'cn=' + username + ',' + userDnBase
+			// Load roles from LDAP
+			authorities = ldapAuthoritiesPopulator.getGroupMembershipRoles(userDn, username)
+		} else if (mockRoles) {
+			logger.debug "loading roles from configuration"
 			// Load Development roles if enabled
-			authorities.addAll(mockRoles.collect{ new GrantedAuthorityImpl(it) })
+			authorities = mockRoles.collect{ new GrantedAuthorityImpl(it) }
 		} else {
+			// Falling back for default
+			logger.debug "falling back to the default role"
 			authorities = DEFAULT_AUTHORITIES
 		}
 

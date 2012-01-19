@@ -36,4 +36,20 @@ class MockAuthenticationProviderTests {
 		assert true == newToken.isAuthenticated()
 
     }
+
+	// try and authenticate against a non-mock authentication token
+	
+	// Try loadUserDetails only service
+
+	// try weird user details service that responds to neither
+
+	// try afterPropertiesSet where userDetailsService is not set.
+	void testUserDetailsNotSet() {
+		def mockAuthenticationProvider = new MockAuthenticationProvider()
+
+		shouldFail{
+			mockAuthenticationProvider.afterPropertiesSet()
+		}
+	}
 }
+

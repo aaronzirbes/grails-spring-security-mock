@@ -7,6 +7,9 @@ security {
 		email = 'fake@example.org'
 		username = 'fakeuser'
 		roles = [ 'ROLE_USER', 'ROLE_ADMIN' ]
+		load {
+			dao = false
+		}
 	}
 }
 

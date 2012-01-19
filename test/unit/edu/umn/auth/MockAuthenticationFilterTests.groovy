@@ -64,6 +64,7 @@ class MockAuthenticationFilterTests {
 
 		// Setup the Filter
 		def mockAuthenticationFilter = new MockAuthenticationFilter(filterSettings)
+		mockAuthenticationFilter.afterPropertiesSet()
 
 		// make sure it worked
 		assert mockAuthenticationFilter

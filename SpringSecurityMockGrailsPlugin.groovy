@@ -54,17 +54,53 @@ class SpringSecurityMockGrailsPlugin {
 		// mock authentication entry point
 		authenticationEntryPoint(MockAuthenticationEntryPoint)
 
-		// mock user details service
-		mockUserDetailsService(MockUserDetailsService) {
-			fullName conf.mock.fullName
-			email = conf.mock.email
-			mockRoles = conf.mock.roles
+		// If LDAP is configured, then load authorities from LDAP
+		if (conf.ldap.active && conf.ldap.authorities.retrieveGroupRoles && conf.ldap.usernameMapper.userDnBase) {
+			// If the LDAP plugin is installed, enabled, and set to retreive groups, then allow loading roles from LDAP
+
+			// Due to limitations in the LDAP user details service, only roles will be loaded
+			ldapAuthoritiesPopulator(GrailsLdapAuthoritiesPopulator, contextSource, conf.ldap.authorities.groupSearchBase) {
+				groupRoleAttribute = conf.ldap.authorities.groupRoleAttribute
+				groupSearchFilter = conf.ldap.authorities.groupSearchFilter
+				searchSubtree = conf.ldap.authorities.searchSubtree
+				if (conf.ldap.authorities.defaultRole) {
+					defaultRole = conf.ldap.authorities.defaultRole
+				}
+				ignorePartialResultException = conf.ldap.authorities.ignorePartialResultException // false
+				userDetailsService = ref('userDetailsService')
+				retrieveDatabaseRoles = conf.ldap.authorities.retrieveDatabaseRoles // false
+				roleStripPrefix = conf.ldap.authorities.clean.prefix
+				roleStripSuffix = conf.ldap.authorities.clean.suffix
+				roleConvertDashes = conf.ldap.authorities.clean.dashes
+				roleToUpperCase = conf.ldap.authorities.clean.uppercase
+			}
 		}
+
+		// setup user details service
+	   	if (conf.mock.load.dao) {
+			// if configured, load the user details from GORM objects
+			userDetailsService(GormUserDetailsService) {
+				grailsApplication = ref('grailsApplication')
+			}
+		} else {
+			// mock user details service
+			userDetailsService(MockUserDetailsService) {
+				// Load LDAP if configured
+				userDnBase = conf.ldap.usernameMapper.userDnBase
+				ldapAuthoritiesPopulator = ref('ldapAuthoritiesPopulator')
+				// Load user attributes
+				fullName conf.mock.fullName
+				email = conf.mock.email
+				mockRoles = conf.mock.roles
+			}
+		}
+
 
 		// mock authentication provider
 		mockAuthenticationProvider(MockAuthenticationProvider) {
-			userDetailsService = ref('mockUserDetailsService')
+			userDetailsService = ref('userDetailsService')
 		}
+
 		// mock authentication filter 
 		mockAuthenticationFilter(MockAuthenticationFilter) {
 			authenticationDetailsSource = ref('authenticationDetailsSource')
