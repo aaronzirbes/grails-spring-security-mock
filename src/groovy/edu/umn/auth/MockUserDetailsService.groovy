@@ -1,37 +1,38 @@
 package edu.umn.auth
 
 import org.apache.log4j.Logger
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService
+import org.springframework.dao.DataAccessException
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator
-	/* 
-	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
-     * Copyright (C) 2012 Aaron J. Zirbes
-	 *
-     * This program is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-	 *
-     * This program is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-	 *
-     * You should have received a copy of the GNU General Public License
-     * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-	 */
+/* 
+ * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
+ * Copyright (C) 2012 Aaron J. Zirbes
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * Class to load user details from the Config.groovy configuration file
  */
-class MockUserDetailsService implements UserDetailsService, AuthenticationUserDetailsService {
+class MockUserDetailsService implements GrailsUserDetailsService, AuthenticationUserDetailsService {
 
 	static final Logger logger = Logger.getLogger(this)
 	String fullName
@@ -53,11 +54,10 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 	private static final List<GrantedAuthority> DEFAULT_AUTHORITIES = AuthorityUtils.createAuthorityList("ROLE_USER")
 
 	/**
-	 * This is to support the {@code RememberMeService}
+	 * This is to support the {@code RememberMeService}, not that you'd need to use it with this plugin...
 	 */
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails userDetails = loadMockUserDetails(username)
-		return userDetails
+		return loadUserByUsername(username, true)
 	}
 
 	/**
@@ -67,14 +67,23 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 		if (authentication == null) {
 			return null
 		} else {
-			return loadMockUserDetails(authentication.getPrincipal().toString())
+			return loadUserByUsername(authentication.getPrincipal().toString(), true)
 		}
 	}
 
 	/**
-	 * This loads the user details from configuration settings
+	 * Loads the mock user based on the username.
+	 *
+	 * @param username the username identifying the user whose data is required.
+	 * @param loadRoles whether to load roles at the same time as loading the user
+	 *
+	 * @return a fully populated user record (never <code>null</code>)
+	 *
+	 * @throws UsernameNotFoundException if the user could not be found
+	 * @throws DataAccessException if user could not be found for a repository-specific reason
 	 */
-	UserDetails loadMockUserDetails(String username) throws UsernameNotFoundException {
+	UserDetails loadUserByUsername(String username, boolean loadRoles) 
+			throws UsernameNotFoundException, DataAccessException {
 
 		// set default values
 		String fullName = fullName
@@ -93,11 +102,11 @@ class MockUserDetailsService implements UserDetailsService, AuthenticationUserDe
 			String userDn = 'cn=' + username + ',' + userDnBase
 			// Load roles from LDAP
 			authorities = ldapAuthoritiesPopulator.getGroupMembershipRoles(userDn, username)
-		} else if (mockRoles) {
+		} else if (loadRoles && mockRoles) {
 			logger.debug "loading roles from configuration"
 			// Load Development roles if enabled
 			authorities = mockRoles.collect{ new GrantedAuthorityImpl(it) }
-		} else {
+		} else if (loadRoles) {
 			// Falling back for default
 			logger.debug "falling back to the default role"
 			authorities = DEFAULT_AUTHORITIES

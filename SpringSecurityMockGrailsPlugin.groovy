@@ -1,6 +1,11 @@
-import edu.umn.auth.*
+import edu.umn.auth.MockAuthenticationEntryPoint
+import edu.umn.auth.MockAuthenticationProvider
+import edu.umn.auth.MockAuthenticationFilter
+import edu.umn.auth.MockUserDetailsService
+import org.codehaus.groovy.grails.plugins.springsecurity.GormUserDetailsService
 import org.codehaus.groovy.grails.plugins.springsecurity.SecurityFilterPosition
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.ldap.GrailsLdapAuthoritiesPopulator
 
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
@@ -21,18 +26,21 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "0.9.8"
+    def version = "0.9.9"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
     def dependsOn = [springSecurityCore: '1.1.1 > *']
+    
+    // Make sure this loads AFTER the Spring Security LDAP plugin.
+    def loadAfter = ['springSecuritLdap']
+    
     // resources that are excluded from plugin packaging
 	def pluginExcludes = [
 		'grails-app/domain/**',
 		'docs/**',
 		'src/docs/**',
-		'test/**'
-	]
+		'test/**' ]
 
     def author = "Aaron J. Zirbes"
     def authorEmail = "aaron.zirbes@gmail.com"
@@ -94,7 +102,6 @@ class SpringSecurityMockGrailsPlugin {
 				mockRoles = conf.mock.roles
 			}
 		}
-
 
 		// mock authentication provider
 		mockAuthenticationProvider(MockAuthenticationProvider) {
