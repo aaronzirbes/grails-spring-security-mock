@@ -94,8 +94,10 @@ class SpringSecurityMockGrailsPlugin {
 			// mock user details service
 			userDetailsService(MockUserDetailsService) {
 				// Load LDAP if configured
-				userDnBase = conf.ldap.usernameMapper.userDnBase
-				ldapAuthoritiesPopulator = ref('ldapAuthoritiesPopulator')
+				if (conf.ldap.active && conf.ldap.authorities.retrieveGroupRoles && conf.ldap.usernameMapper.userDnBase) {
+					userDnBase = conf.ldap.usernameMapper.userDnBase
+					ldapAuthoritiesPopulator = ref('ldapAuthoritiesPopulator')
+				}
 				// Load user attributes
 				fullName conf.mock.fullName
 				email = conf.mock.email
