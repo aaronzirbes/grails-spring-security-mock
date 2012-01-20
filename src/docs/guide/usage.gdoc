@@ -27,4 +27,8 @@ In your staging and production environments, make sure to set
 {code}
 grails.plugins.springsecurity.mock.active = false
 {code}
+If you have the Spring Security LDAP plugin installed as well, but don't want to load roles from LDAP, make sure to set the following to disable LDAP role lookup.
+{code}
+grails.plugins.springsecurity.ldap.active = false
+{code}
 

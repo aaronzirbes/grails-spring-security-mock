@@ -11,8 +11,6 @@ grails.plugins.springsecurity.mock.username = 'aaronzirbes'
 {code}
 {note}
 
-
-
 {table}
 *Name* | *Default* | *Meaning*
 mock.active | @false@ | whether the plugin is enabled or not (e.g. to disable per-environment)
@@ -20,5 +18,33 @@ mock.fullName | 'Fake User Account' | the full name of the mock user being autom
 mock.email | 'fake@example.org'  | the email address of the mock user being automatically logged in
 mock.username | 'fakeuser' | the username of the mock user being automatically logged in
 mock.roles | [ 'ROLE_USER', 'ROLE_ADMIN' ] | a collection of roles that will be automatically assigned to the mock user being auto-logged in to your application
+mock.load.dao | @false@ | whether or not the plugin trys to load roles from GORM instead of the @mock.roles@ setting
 {table}
+
+{note}
+Configuration settings from spring-security-ldap that affect the behavior of this plugin
+{note}
+
+If all three of these settings are configured and enabled, then the Mock plugin will attempt to load
+roles from LDAP rather than from the @mock.roles@ configuration setting.
+
+{table}
+*Name* | *Default* | *Meaning*
+ldap.active | @true@ | this must be set to true for spring-security-mock to load roles from LDAP
+ldap.authorities.retrieveGroupRoles | @true@ | this must be set to true for spring-security-mock to load roles from LDAP
+ldap.usernameMapper.userDnBase | none, must be set | this must be set to true for spring-security-mock to load roles from LDAP.  This will be used to build the userDn that will be used to search LDAP for roles associated with the user.  The full DN will be equivalent to "cn=${username},${userDnBase}"
+{table}
+
+h2. Using a different User Details Service
+
+You can use any User Details Service with the Mock plugin as long as it implements [GrailsUserDetailsService|https://github.com/grails-plugins/grails-spring-security-core/blob/master/src/java/org/codehaus/groovy/grails/plugins/springsecurity/GrailsUserDetailsService.java]. This is accomplished by setting the @userDetailsService@ in your @grails-app/conf/spring/resources.groovy@ file.
+
+For example:
+
+{code}
+beans = {
+   userDetailsService(com.mycompany.myapp.MyUserDetailsService)
+}
+{code}
+
 
