@@ -26,14 +26,14 @@ import org.codehaus.groovy.grails.plugins.springsecurity.ldap.GrailsLdapAuthorit
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "0.9.9"
+    def version = "0.9.11"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
     def dependsOn = [springSecurityCore: '1.1.1 > *']
     
     // Make sure this loads AFTER the Spring Security LDAP plugin.
-    def loadAfter = ['springSecuritLdap']
+    def loadAfter = ['springSecurityLdap']
     
     // resources that are excluded from plugin packaging
 	def pluginExcludes = [
@@ -58,6 +58,8 @@ class SpringSecurityMockGrailsPlugin {
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultMockSecurityConfig'
 		conf = SpringSecurityUtils.securityConfig
 		if (!conf.mock.active) { return }
+
+		println 'Configuring Spring Security Mock ...'
 
 		// mock authentication entry point
 		authenticationEntryPoint(MockAuthenticationEntryPoint)
@@ -122,9 +124,10 @@ class SpringSecurityMockGrailsPlugin {
 			mockUsername = conf.mock.username
 		}
 
-		println 'Configuring Spring Security Mock ...'
 		SpringSecurityUtils.registerProvider 'mockAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'mockAuthenticationFilter', SecurityFilterPosition.CAS_FILTER.getOrder() + 13
+
+		println '...finished configuring Spring Security Mock'
 
     }
 }
