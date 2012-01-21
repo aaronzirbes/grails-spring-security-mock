@@ -5,7 +5,6 @@ import edu.umn.auth.MockUserDetailsService
 import org.codehaus.groovy.grails.plugins.springsecurity.GormUserDetailsService
 import org.codehaus.groovy.grails.plugins.springsecurity.SecurityFilterPosition
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.ldap.GrailsLdapAuthoritiesPopulator
 
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
@@ -26,7 +25,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.ldap.GrailsLdapAuthorit
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "0.9.11"
+    def version = "1.0.0"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
@@ -63,28 +62,6 @@ class SpringSecurityMockGrailsPlugin {
 
 		// mock authentication entry point
 		authenticationEntryPoint(MockAuthenticationEntryPoint)
-
-		// If LDAP is configured, then load authorities from LDAP
-		if (conf.ldap.active && conf.ldap.authorities.retrieveGroupRoles && conf.ldap.usernameMapper.userDnBase) {
-			// If the LDAP plugin is installed, enabled, and set to retreive groups, then allow loading roles from LDAP
-
-			// Due to limitations in the LDAP user details service, only roles will be loaded
-			ldapAuthoritiesPopulator(GrailsLdapAuthoritiesPopulator, contextSource, conf.ldap.authorities.groupSearchBase) {
-				groupRoleAttribute = conf.ldap.authorities.groupRoleAttribute
-				groupSearchFilter = conf.ldap.authorities.groupSearchFilter
-				searchSubtree = conf.ldap.authorities.searchSubtree
-				if (conf.ldap.authorities.defaultRole) {
-					defaultRole = conf.ldap.authorities.defaultRole
-				}
-				ignorePartialResultException = conf.ldap.authorities.ignorePartialResultException // false
-				userDetailsService = ref('userDetailsService')
-				retrieveDatabaseRoles = conf.ldap.authorities.retrieveDatabaseRoles // false
-				roleStripPrefix = conf.ldap.authorities.clean.prefix
-				roleStripSuffix = conf.ldap.authorities.clean.suffix
-				roleConvertDashes = conf.ldap.authorities.clean.dashes
-				roleToUpperCase = conf.ldap.authorities.clean.uppercase
-			}
-		}
 
 		// setup user details service
 	   	if (conf.mock.load.dao) {

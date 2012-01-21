@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator
 /* 
  * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
  * Copyright (C) 2012 Aaron J. Zirbes
@@ -40,7 +39,7 @@ class MockUserDetailsService implements GrailsUserDetailsService, Authentication
 	ArrayList<String> mockRoles = new ArrayList<String>()
 
 	String userDnBase
-	DefaultLdapAuthoritiesPopulator ldapAuthoritiesPopulator
+	def ldapAuthoritiesPopulator
 
 	/**
 	 * This is to support the {@code RememberMeService}
