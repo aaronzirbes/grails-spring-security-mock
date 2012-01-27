@@ -29,7 +29,7 @@ class SpringSecurityMockGrailsPlugin {
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [springSecurityCore: '1.2.7.1 > *']
+    def dependsOn = [springSecurityCore: '1.2.7.2 > *']
     
     // Make sure this loads AFTER the Spring Security LDAP plugin.
     def loadAfter = ['springSecurityLdap']
