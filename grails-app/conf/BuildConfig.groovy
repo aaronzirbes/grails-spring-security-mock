@@ -29,7 +29,7 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.13'
     }
 	plugins {
-		runtime		':spring-security-core:1.2.7.1'
+		// compile		':spring-security-core:1.2.7.2'
 	}
 }
 

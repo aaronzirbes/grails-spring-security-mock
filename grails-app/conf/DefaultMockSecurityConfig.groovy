@@ -7,10 +7,10 @@ security {
 		email = 'fake@example.org'
 		username = 'fakeuser'
 		roles = [ 'ROLE_USER', 'ROLE_ADMIN' ]
-		load {
-			dao = false
-		}
 	}
+	// http://jira.grails.org/browse/GPSPRINGSECURITYCORE-160
+	// Over-ride Spring Security Core setting
+	userLookup.enabled = false
 }
 
 // Suggested defaults

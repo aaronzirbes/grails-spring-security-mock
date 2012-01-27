@@ -18,7 +18,7 @@ mock.fullName | 'Fake User Account' | the full name of the mock user being autom
 mock.email | 'fake@example.org'  | the email address of the mock user being automatically logged in
 mock.username | 'fakeuser' | the username of the mock user being automatically logged in
 mock.roles | [ 'ROLE_USER', 'ROLE_ADMIN' ] | a collection of roles that will be automatically assigned to the mock user being auto-logged in to your application
-mock.load.dao | @false@ | whether or not the plugin trys to load roles from GORM instead of the @mock.roles@ setting
+userLookup.enabled | @false@ | whether or not Spring Security Core looks up user details in a GORM Domain Class.  If @true@, roles will be loaded from GORM instead of the @mock.roles@ setting.
 {table}
 
 {note}

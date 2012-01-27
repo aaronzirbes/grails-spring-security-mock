@@ -25,11 +25,11 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "1.0.0"
+    def version = "1.0.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [springSecurityCore: '1.1.1 > *']
+    def dependsOn = [springSecurityCore: '1.2.7.1 > *']
     
     // Make sure this loads AFTER the Spring Security LDAP plugin.
     def loadAfter = ['springSecurityLdap']
@@ -64,7 +64,7 @@ class SpringSecurityMockGrailsPlugin {
 		authenticationEntryPoint(MockAuthenticationEntryPoint)
 
 		// setup user details service
-	   	if (conf.mock.load.dao) {
+	   	if (conf.userLookup.enabled) {
 			// if configured, load the user details from GORM objects
 			userDetailsService(GormUserDetailsService) {
 				grailsApplication = ref('grailsApplication')
