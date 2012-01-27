@@ -38,6 +38,7 @@ class SpringSecurityMockGrailsPlugin {
 	def pluginExcludes = [
 		'grails-app/domain/**',
 		'docs/**',
+		'lib/**',
 		'src/docs/**',
 		'test/**' ]
 
