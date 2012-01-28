@@ -49,6 +49,10 @@ class SpringSecurityMockGrailsPlugin {
 
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/spring-security-mock"
+	def license = "GPLv3"
+	def developers = [ [ name: "Aaron J. Zirbes", email: "aaron.zirbes@gmail.com" ] ]
+	def issueManagement = [ system: "GitHub", url: "https://github.com/aaronzirbes/grails-spring-security-mock/issues" ]
+	def scm = [ url: "https://github.com/aaronzirbes/grails-spring-security-mock" ]
 
     def doWithSpring = {
 		// plug in mock artifacts in to spring security
