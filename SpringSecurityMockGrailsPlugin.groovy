@@ -66,7 +66,10 @@ class SpringSecurityMockGrailsPlugin {
 		println 'Configuring Spring Security Mock ...'
 
 		// mock authentication entry point
-		authenticationEntryPoint(MockAuthenticationEntryPoint)
+    authenticationEntryPoint(MockAuthenticationEntryPoint) {
+      grailsApplication = ref('grailsApplication')
+    }
+
 
 		// setup user details service
 	   	if (conf.userLookup.enabled) {

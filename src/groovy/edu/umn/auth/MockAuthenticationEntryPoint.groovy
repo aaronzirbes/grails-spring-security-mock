@@ -40,14 +40,19 @@ class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, Initiali
 	public final void commence(final HttpServletRequest request, final HttpServletResponse response,
 	            final AuthenticationException authenticationException) throws IOException, ServletException {
 
-		logger.debug('commencing from exception' + authenticationException.toString())
+        // Obey deny-by-default
+        if (grailsApplication.config.grails.plugins.springsecurity.rejectIfNoRule && authenticationException instanceof InsufficientAuthenticationException) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
+        } else {
+      logger.debug('commencing from exception' + authenticationException.toString())
 
-		// get the context
-		def contextPath = request.getContextPath()
+      // get the context
+      def contextPath = request.getContextPath()
 
-		// This matches the MockAuthenticationFilter URL
-		final String redirectUrl = contextPath + "/j_spring_mock_security_check"
+      // This matches the MockAuthenticationFilter URL
+      final String redirectUrl = contextPath + "/j_spring_mock_security_check"
 
-		response.sendRedirect(redirectUrl)
-	}
+      response.sendRedirect(redirectUrl)
+    }
+}
 }
