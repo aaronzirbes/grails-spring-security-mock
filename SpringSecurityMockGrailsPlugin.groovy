@@ -66,9 +66,9 @@ class SpringSecurityMockGrailsPlugin {
 		println 'Configuring Spring Security Mock ...'
 
 		// mock authentication entry point
-    authenticationEntryPoint(MockAuthenticationEntryPoint) {
-      grailsApplication = ref('grailsApplication')
-    }
+		authenticationEntryPoint(MockAuthenticationEntryPoint) {
+			grailsApplication = ref('grailsApplication')
+		}
 
 
 		// setup user details service
