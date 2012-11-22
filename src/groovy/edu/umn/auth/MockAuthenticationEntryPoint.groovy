@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse
 import org.apache.log4j.Logger
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.security.core.AuthenticationException
+import org.springframework.security.authentication.InsufficientAuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
