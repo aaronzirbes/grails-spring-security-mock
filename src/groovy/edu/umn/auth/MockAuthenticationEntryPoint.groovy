@@ -36,6 +36,7 @@ class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, Initiali
 	void afterPropertiesSet() { }
 
 	static final Logger logger = Logger.getLogger(this)
+  def grailsApplication
 
 	/** Commences the login re-direct */
 	public final void commence(final HttpServletRequest request, final HttpServletResponse response,
