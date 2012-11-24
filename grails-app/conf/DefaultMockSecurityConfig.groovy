@@ -11,6 +11,9 @@ security {
 	// http://jira.grails.org/browse/GPSPRINGSECURITYCORE-160
 	// Over-ride Spring Security Core setting
 	userLookup.enabled = false
+    // Support for rejectIfNoRule from Chris Brown
+    // https://github.com/aaronzirbes/grails-spring-security-mock/pull/3/files#L0R65
+    rejectIfNoRule = false
 }
 
 // Suggested defaults

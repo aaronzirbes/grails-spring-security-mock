@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.apache.log4j.Logger
 import org.springframework.beans.factory.InitializingBean
+import org.springframework.security.authentication.InsufficientAuthenticationException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
+
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
      * Copyright (C) 2012 Aaron J. Zirbes
@@ -36,11 +38,18 @@ class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, Initiali
 
 	static final Logger logger = Logger.getLogger(this)
 
+    boolean rejectIfNoRule = false
+
 	/** Commences the login re-direct */
 	public final void commence(final HttpServletRequest request, final HttpServletResponse response,
 	            final AuthenticationException authenticationException) throws IOException, ServletException {
 
-		logger.debug('commencing from exception' + authenticationException.toString())
+        // Obey deny-by-default
+        if (rejectIfNoRule && authenticationException instanceof InsufficientAuthenticationException) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
+        } else {
+            logger.debug('commencing from exception' + authenticationException.toString())
+        }
 
 		// get the context
 		def contextPath = request.getContextPath()
