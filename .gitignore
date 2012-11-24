@@ -14,6 +14,7 @@
 /*.launch
 /*.tmproj
 .*.swp
+.tags
 
 # logs
 stacktrace.log
