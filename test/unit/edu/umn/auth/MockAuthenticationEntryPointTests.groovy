@@ -2,16 +2,14 @@ package edu.umn.auth
 
 import static org.junit.Assert.*
 
+import grails.test.mixin.*
+import grails.test.mixin.support.*
+import javax.servlet.http.HttpServletResponse
+import org.junit.*
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.security.authentication.InsufficientAuthenticationException
-import grails.test.mixin.*
-import grails.test.mixin.support.*
-import org.junit.*
 
-/**
- * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
- */
 @TestMixin(GrailsUnitTestMixin)
 class MockAuthenticationEntryPointTests {
 
@@ -24,7 +22,29 @@ class MockAuthenticationEntryPointTests {
 
 		entryPoint.commence(request, response, authenticationException)
 
-		assertEquals "/j_spring_mock_security_check", response.redirectedUrl
-
+		assert "/j_spring_mock_security_check" == response.redirectedUrl
     }
+
+    void testRejectIfNoRule() {
+        def entryPoint = new MockAuthenticationEntryPoint()
+        entryPoint.rejectIfNoRule = true
+
+		def request = new MockHttpServletRequest('GET', '/')
+
+		def responseMocker = mockFor(MockHttpServletResponse)
+        responseMocker.demand.sendError(1) { HttpServletResponse hsr, msg ->
+            assert hsr == HttpServletResponse.SC_UNAUTHORIZED
+        }
+        responseMocker.demand.sendRedirect(1) { String s ->
+            assert s == "/j_spring_mock_security_check"
+        }
+		def response = responseMocker.createMock()
+
+		def authenticationException = new InsufficientAuthenticationException('TEST')
+
+		entryPoint.commence(request, response, authenticationException)
+
+        responseMocker.verify()
+    }
+
 }

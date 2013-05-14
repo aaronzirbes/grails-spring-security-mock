@@ -1,33 +1,30 @@
 package edu.umn.auth
 
 import static org.junit.Assert.*
-
-import grails.test.mixin.*
-import grails.test.mixin.support.*
 import org.junit.*
 
-/**
- * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
- */
-@TestMixin(GrailsUnitTestMixin)
 class MockUserDetailsServiceTests {
 
-	def detailsServiceSettings
+    MockUserDetailsService mockUserDetailsService
 
+    @Before
     void setUp() {
-        // Setup logic here
+		List<String> mockRoles = [ 'ROLE_AWESOME' ]
 
-		def mockRoles = [ 'ROLE_AWESOME' ]
-
-		detailsServiceSettings = [
-			fullName: 'John Doe',
-			email: 'johndoe@example.org',
-		   	mockRoles: mockRoles ]
+		mockUserDetailsService = new MockUserDetailsService()
+        mockUserDetailsService.fullName = 'John Doe'
+        mockUserDetailsService.email = 'johndoe@example.org'
+        mockUserDetailsService.mockRoles = mockRoles
     }
 
+    @After
+    void tearDown() {
+        mockUserDetailsService = null
+    }
+
+    @Test
     void testLoadByUsername() {
 
-		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
 		String username = 'ajz'
 		def userDetails = mockUserDetailsService.loadUserByUsername(username)
 
@@ -42,9 +39,9 @@ class MockUserDetailsServiceTests {
 
     }
 
+    @Test
     void testLoadByToken() {
 		def token = new MockAuthenticationToken('ajz')
-		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
 
 		def userDetails = mockUserDetailsService.loadUserDetails(token)
 
@@ -58,8 +55,8 @@ class MockUserDetailsServiceTests {
 		assertFalse userDetails.authorities.collect{ it.toString() }.contains('ROLE_LAME_SAUCE')
     }
 
+    @Test
 	void testNullTokenReturnsNull() {
-		def mockUserDetailsService = new MockUserDetailsService(detailsServiceSettings)
 		def userDetails = mockUserDetailsService.loadUserDetails(null)
 
 		assertNull userDetails
