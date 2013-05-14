@@ -85,7 +85,7 @@ class SpringSecurityMockGrailsPlugin {
 					ldapAuthoritiesPopulator = ref('ldapAuthoritiesPopulator')
 				}
 				// Load user attributes
-				fullName conf.mock.fullName
+				fullName = conf.mock.fullName
 				email = conf.mock.email
 				mockRoles = conf.mock.roles
 			}
