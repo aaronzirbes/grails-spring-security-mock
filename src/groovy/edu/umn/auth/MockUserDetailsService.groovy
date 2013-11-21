@@ -1,7 +1,7 @@
 package edu.umn.auth
 
 import org.apache.log4j.Logger
-import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService
+import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
 import org.springframework.dao.DataAccessException
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.Authentication
