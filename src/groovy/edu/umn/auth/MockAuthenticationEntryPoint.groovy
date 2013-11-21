@@ -47,9 +47,9 @@ class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, Initiali
         // Obey deny-by-default
         if (rejectIfNoRule && authenticationException instanceof InsufficientAuthenticationException) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
-        } else {
-            logger.debug('commencing from exception' + authenticationException.toString())
+            return
         }
+        logger.debug('commencing from exception' + authenticationException.toString())
 
 		// get the context
 		def contextPath = request.getContextPath()
