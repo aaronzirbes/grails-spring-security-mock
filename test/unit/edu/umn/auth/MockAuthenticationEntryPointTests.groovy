@@ -35,9 +35,7 @@ class MockAuthenticationEntryPointTests {
         responseMocker.demand.sendError(1) { HttpServletResponse hsr, msg ->
             assert hsr == HttpServletResponse.SC_UNAUTHORIZED
         }
-        responseMocker.demand.sendRedirect(1) { String s ->
-            assert s == "/j_spring_mock_security_check"
-        }
+        responseMocker.demand.sendRedirect(0) { String s -> }
 		def response = responseMocker.createMock()
 
 		def authenticationException = new InsufficientAuthenticationException('TEST')
