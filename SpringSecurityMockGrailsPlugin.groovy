@@ -2,9 +2,9 @@ import edu.umn.auth.MockAuthenticationEntryPoint
 import edu.umn.auth.MockAuthenticationProvider
 import edu.umn.auth.MockAuthenticationFilter
 import edu.umn.auth.MockUserDetailsService
-import org.codehaus.groovy.grails.plugins.springsecurity.GormUserDetailsService
-import org.codehaus.groovy.grails.plugins.springsecurity.SecurityFilterPosition
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.userdetails.GormUserDetailsService
+import grails.plugin.springsecurity.SecurityFilterPosition
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 	/* 
 	 * Grails Spring Security Mock Plugin - Fake Authentication for Spring Security
@@ -25,11 +25,11 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "1.0.3"
+    def version = "2.0-RC2"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.3.7 > *"
+    def grailsVersion = "2.3 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [springSecurityCore: '1.2.7.3 > *']
+    def dependsOn = [springSecurityCore: '2.0-RC2 > *']
     
     // Make sure this loads AFTER the Spring Security LDAP plugin.
     def loadAfter = ['springSecurityLdap']
