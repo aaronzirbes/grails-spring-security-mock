@@ -13,22 +13,23 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
         mavenCentral()
+        mavenRepo 'http://repo.spring.io/milestone'
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
     }
 	plugins {
         // Grails Core Plugins
-        compile(":hibernate:${grailsVersion}") {
+        compile(":hibernate:3.6.10.4") {
             export = false
         }
-        runtime(":tomcat:${grailsVersion}") {
+        runtime(":tomcat:7.0.47") {
             export = false 
         }
 
         // Spring Security
-        compile ':spring-security-core:1.2.7.3'
-        compile(':spring-security-ldap:1.0.6') {
+        compile ':spring-security-core:2.0-RC2'
+        compile(':spring-security-ldap:2.0-RC2') {
             export = false
         }
 
