@@ -25,7 +25,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 	 */
 class SpringSecurityMockGrailsPlugin {
     // the plugin version
-    def version = "1.0.2"
+    def version = "1.0.3"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
@@ -51,7 +51,10 @@ class SpringSecurityMockGrailsPlugin {
     def documentation = "http://grails.org/plugin/spring-security-mock"
 	def license = "GPLv3"
 	def developers = [ [ name: "Aaron J. Zirbes", email: "aaron.zirbes@gmail.com" ] ]
-	def issueManagement = [ system: "GitHub", url: "https://github.com/aaronzirbes/grails-spring-security-mock/issues" ]
+	def issueManagement = [
+        system: "GitHub",
+        url: "https://github.com/aaronzirbes/grails-spring-security-mock/issues"
+        ]
 	def scm = [ url: "https://github.com/aaronzirbes/grails-spring-security-mock" ]
 
     def doWithSpring = {
@@ -80,7 +83,11 @@ class SpringSecurityMockGrailsPlugin {
 			// mock user details service
 			userDetailsService(MockUserDetailsService) {
 				// Load LDAP if configured
-				if (conf.ldap.active && conf.ldap.authorities.retrieveGroupRoles && conf.ldap.usernameMapper.userDnBase) {
+				if (
+                    conf.ldap.active &&
+                    conf.ldap.authorities.retrieveGroupRoles &&
+                    conf.ldap.usernameMapper.userDnBase
+                ) {
 					userDnBase = conf.ldap.usernameMapper.userDnBase
 					ldapAuthoritiesPopulator = ref('ldapAuthoritiesPopulator')
 				}
