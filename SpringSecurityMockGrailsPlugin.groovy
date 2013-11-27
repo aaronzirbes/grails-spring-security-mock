@@ -1,7 +1,7 @@
-import edu.umn.auth.MockAuthenticationEntryPoint
-import edu.umn.auth.MockAuthenticationProvider
-import edu.umn.auth.MockAuthenticationFilter
-import edu.umn.auth.MockUserDetailsService
+import org.zirbes.security.auth.MockAuthenticationEntryPoint
+import org.zirbes.security.auth.MockAuthenticationProvider
+import org.zirbes.security.auth.MockAuthenticationFilter
+import org.zirbes.security.auth.MockUserDetailsService
 import grails.plugin.springsecurity.SecurityFilterPosition
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.userdetails.GormUserDetailsService

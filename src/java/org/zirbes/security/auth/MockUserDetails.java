@@ -1,4 +1,4 @@
-package edu.umn.auth;
+package org.zirbes.security.auth;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.User;
  * User details for use by the Mock security plugin
  * This adds support for fullname, email to the {@link User} class.
  * 
- * @author <a href="mailto:ajz@umn.edu">Aaron J. Zirbes</a>
+ * @author <a href="mailto:aaron.zirbes@gmail.com">Aaron J. Zirbes</a>
  */
 class MockUserDetails extends User {
 

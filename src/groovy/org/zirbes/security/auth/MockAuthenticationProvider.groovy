@@ -1,4 +1,4 @@
-package edu.umn.auth
+package org.zirbes.security.auth
 
 import org.apache.log4j.Logger
 import org.springframework.beans.factory.InitializingBean

@@ -1,4 +1,4 @@
-package edu.umn.auth;
+package org.zirbes.security.auth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import org.springframework.security.core.GrantedAuthority;
 	This <code>MockAuthenticationToken</code> is capable of building an {@link Authentication}
 	for use in faking spring security authentication.
 
-	@author <a href="mailto:ajz@umn.edu">Aaron J. Zirbes</a>
+	@author <a href="mailto:aaron.zirbes@gmail.com">Aaron J. Zirbes</a>
 */
 class MockAuthenticationToken extends AbstractAuthenticationToken implements Serializable {
 

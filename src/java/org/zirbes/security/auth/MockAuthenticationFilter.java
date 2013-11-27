@@ -1,4 +1,4 @@
-package edu.umn.auth;
+package org.zirbes.security.auth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 /**
  * Processes a {@link MockAuthenticationToken}, and authenticates via Mock authenticator
  * 
- * @author <a href="mailto:ajz@umn.edu">Aaron J. Zirbes</a>
+ * @author <a href="mailto:aaron.zirbes@gmail.com">Aaron J. Zirbes</a>
  */
 class MockAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

@@ -1,4 +1,4 @@
-package edu.umn.auth
+package org.zirbes.security.auth
 
 import static org.junit.Assert.*
 import org.junit.*

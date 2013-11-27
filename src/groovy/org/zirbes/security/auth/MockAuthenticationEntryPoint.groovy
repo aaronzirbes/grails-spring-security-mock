@@ -1,4 +1,4 @@
-package edu.umn.auth
+package org.zirbes.security.auth
 
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
@@ -30,7 +30,7 @@ import org.springframework.security.web.AuthenticationEntryPoint
 /**
  * Processes a mock login request for spring security
  *
- * @author <a href="mailto:ajz@umn.edu">Aaron J. Zirbes</a>
+ * @author <a href="mailto:aaron.zirbes@gmail.com">Aaron J. Zirbes</a>
  */
 class MockAuthenticationEntryPoint implements AuthenticationEntryPoint, InitializingBean {
 
